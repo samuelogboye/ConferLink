@@ -1,0 +1,68 @@
+{
+	"name": "startease-expressjs-project",
+	"version": "1.0.0",
+	"description": "Expressjs project generated using startease CLI tool",
+	"main": "server.js",
+	"scripts": {
+		"start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register build/server.js",
+		"start-prod": "node build/server.js",
+		"build": "tsc",
+		"dev": "nodemon",
+		"watch": "tsc --watch & nodemon build/server.js",
+		"lint": "npx eslint src/",
+		"format": "npx prettier --write .",
+		"check-types": "tsc --noEmit --pretty --skipLibCheck --incremental --project tsconfig.json --strict"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@faker-js/faker": "^8.4.1",
+		"@types/multer": "^1.4.11",
+		"bcryptjs": "^2.4.3",
+		"compression": "^1.7.4",
+		"connect-timeout": "^1.9.0",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"express-mongo-sanitize": "^2.2.0",
+		"express-rate-limit": "^7.3.1",
+		"helmet": "^7.1.0",
+		"helmet-csp": "^4.0.0",
+		"hi-base32": "^0.5.1",
+		"hpp": "^0.2.3",
+		"module-alias": "^2.2.3",
+		"mongoose": "^8.4.4",
+		"morgan": "^1.10.0",
+		"multer": "^1.4.5-lts.1",
+		"npm": "^10.8.1",
+		"ts-custom-error": "^3.3.1",
+		"tsconfig-paths": "^4.2.0",
+		"winston": "^3.13.0"
+	},
+	"devDependencies": {
+		"@types/bcryptjs": "^2.4.6",
+		"@types/compression": "^1.7.5",
+		"@types/connect-timeout": "^0.0.39",
+		"@types/cookie-parser": "^1.4.7",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21",
+		"@types/hpp": "^0.2.6",
+		"@types/morgan": "^1.9.9",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
+		"eslint": "^8.0.0",
+		"eslint-config-prettier": "^9.1.0",
+		"nodemon": "^3.1.4",
+		"prettier": "^3.3.2",
+		"ts-node": "^10.9.2",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^5.5.2"
+	},
+	"engines": {
+		"node": ">=20.11.0"
+	},
+	"_moduleAliases": {
+		"@": "./build"
+	}
+}
