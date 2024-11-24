@@ -3,7 +3,7 @@ services:
     container_name: conferlink-backend
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
     env_file: 
@@ -18,9 +18,9 @@ services:
     container_name: conferlink-frontend
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
-      - "80:80"
+      - "5173:5173"
     depends_on:
       - backend
 
