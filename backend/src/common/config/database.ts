@@ -10,8 +10,7 @@ interface CustomConnectOptions extends ConnectOptions {
 
 export const connectDb = async (): Promise<void> => {
 	try {
-		// const conn = await mongoose.connect(ENVIRONMENT.DB.URL, {} as CustomConnectOptions);
-		const conn = await mongoose.connect('mongodb://root:example@mongo:27017/conferlink', {} as CustomConnectOptions);
+		const conn = await mongoose.connect(ENVIRONMENT.DB.URL, {} as CustomConnectOptions);
 
 		console.log('MongoDB Connected to ' + conn.connection.name);
 	} catch (error) {

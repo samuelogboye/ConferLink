@@ -15,6 +15,9 @@
 	},
 	"author": "Samuel Ogboye",
 	"license": "ISC",
+	"_moduleAliases": {
+		"@": "dist"
+	},
 	"dependencies": {
 		"@faker-js/faker": "^8.4.1",
 		"@types/multer": "^1.4.11",
