@@ -1,6 +1,6 @@
 {
-  "name": "startease-react-typescript-temp",
-  "description": "Startease template to get up and developing quickly with React and TypeScript",
+  "name": "conferlink-frontend",
+  "description": "Frontend for conferlink app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
