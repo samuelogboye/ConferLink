@@ -10,3 +10,10 @@ export interface LoginRequestBody {
 	email: string;
 	password: string;
 }
+
+
+export interface DecodeTokenResponse {
+	userId: string;
+	iat: number;
+	exp: number;
+}

@@ -1,6 +1,6 @@
 import { catchAsync } from '@/middlewares';
 import { UserModel } from '@/models';
-import { AppResponse, logger, stream } from '@/common/utils';
+import { AppResponse, logger } from '@/common/utils';
 import { validateUserUpdate } from './userValidators';
 import { getUserById } from '@/services/users';
 
@@ -46,4 +46,18 @@ export const updateUser = catchAsync(async (req, res) => {
 	logger.info(`User with ID: ${id} updated successfully`);
 
 	return AppResponse(res, 200, updatedUser, 'Data updated successfully');
+});
+
+export const deleteUser = catchAsync(async (req, res) => {
+	const { id } = req.params;
+
+	// Find the user by ID
+	const user = await getUserById(id);
+	if (!user) {
+		return AppResponse(res, 404, null, 'User not found');
+	}
+
+	// Delete the user
+	await UserModel.findByIdAndDelete(id);
+	return AppResponse(res, 200, null, 'User deleted successfully');
 });

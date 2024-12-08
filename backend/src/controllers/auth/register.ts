@@ -1,9 +1,10 @@
+import { RegisterRequestBody } from '@/common/interfaces/auth';
 import { AppResponse, hashPassword } from '@/common/utils';
 import { catchAsync } from '@/middlewares';
 import { createUser, getUserByEmail, getUserByUsername } from '@/services/users';
 
 export const register = catchAsync(async (req, res) => {
-	const { email, username, password } = req.body;
+	const { email, username, password } = req.body as RegisterRequestBody;
 
 	if (!email || !password || !username) {
 		return AppResponse(res, 400, null, 'Email, username and password are required');

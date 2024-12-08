@@ -1,4 +1,4 @@
-import { IUser } from '@/common/interfaces';
+import { RegisterRequestBody } from '@/common/interfaces/auth';
 import { UserModel } from '@/models';
 
 export const getUserById = async (id: string) => {
@@ -17,6 +17,6 @@ export const getUserByUsername = async (username: string) => {
     return await UserModel.findOne({ username });
 };
 
-export const createUser = async (user: IUser) => {
+export const createUser = async (user: RegisterRequestBody) => {
 	return await UserModel.create(user);
 };

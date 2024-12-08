@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { ENVIRONMENT } from '../config';
 import { logger } from './logger';
+import { DecodeTokenResponse } from '../interfaces/auth';
 
 // Function to sign a JWT token
 export const signToken = (payload: object, expiresIn: string = '1h'): string => {
@@ -11,7 +12,7 @@ export const signToken = (payload: object, expiresIn: string = '1h'): string => 
 };
 
 // Function to decode a JWT token
-export const decodeToken = (token: string): any => {
+export const decodeToken = (token: string): DecodeTokenResponse => {
 	try {
 		logger.info('jwtUtils.decodeToken(): Decoding token');
 		const decoded = jwt.verify(token, ENVIRONMENT.APP.SECRET);
