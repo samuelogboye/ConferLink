@@ -81,3 +81,5 @@ staticfiles/
 static/
 local_settings.py
 .env
+
+.pnpm-store
