@@ -4,6 +4,7 @@ export interface IEnvironment {
 		PORT: number;
 		ENV?: string;
 		CLIENT: string;
+		SECRET: string;
 	};
 	DB: {
 		URL: string;

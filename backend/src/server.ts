@@ -26,6 +26,7 @@ import helmetCsp from 'helmet-csp';
 import hpp from 'hpp';
 import http from 'http';
 import morgan from 'morgan';
+import { authRouter } from './routes/authRouter';
 
 dotenv.config();
 /**
@@ -59,7 +60,7 @@ app.use(compression());
 // Rate limiter middleware
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100, // Limit each IP to 100 requests per windowMs
+	max: 10, // Limit each IP to 100 requests per windowMs
 	message: 'Too many requests from this IP, please try again later.',
 });
 app.use(limiter);
@@ -146,9 +147,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
  * Initialize routes
  */
 app.use('/api/v1/alive', (req, res) =>
-	res.status(200).json({ status: 'success', message: 'Server is up and running' })
+	res.status(200).json({ status: 'success', message: 'Server is up and running, innit?' })
 );
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/seeder', seederRouter);
 
 app.all('/*', async (req, res) => {

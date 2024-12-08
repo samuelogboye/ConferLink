@@ -6,6 +6,7 @@ export const ENVIRONMENT: IEnvironment = {
 		PORT: parseInt(process.env.PORT || process.env.APP_PORT || '3000'),
 		ENV: process.env.NODE_ENV,
 		CLIENT: process.env.FRONTEND_URL!,
+		SECRET: process.env.JWT_SECRET!,
 	},
 	DB: {
 		URL: process.env.DB_URL!,
