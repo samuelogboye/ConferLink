@@ -11,13 +11,13 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 	const authHeader = req.headers['authorization'];
 	if (!authHeader) {
 		logger.warn('Authorization header missing');
-		return next(AppResponse(res, 401, null, 'Authorization header missing'));
+		return AppResponse(res, 401, null, 'Authorization header missing');
 	}
 
 	const token = authHeader.split(' ')[1];
 	if (!token) {
 		logger.warn('Token missing in authorization header');
-		return next(AppResponse(res, 401, null, 'Token missing in authorization header'));
+		return AppResponse(res, 401, null, 'Token missing in authorization header');
 	}
 
 	try {
@@ -27,7 +27,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 		const user = await getUserById(decoded.userId);
 		if (!user) {
 			logger.warn(`User with ID ${decoded.userId} not found`);
-			return next(AppResponse(res, 404, null, 'User not found'));
+			return AppResponse(res, 404, null, 'User not found');
 		}
 
 		logger.info(`User with ID ${decoded.userId} authenticated successfully`);
@@ -35,7 +35,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 	} catch (error) {
 		const err = error as Error;
 		logger.error(`Error during authentication: ${err.message}`);
-		return next(AppResponse(res, 401, null, err.message));
+		return AppResponse(res, 401, null, err.message);
 	} finally {
 		logger.info('validateAuth.authenticate(): Function Exit');
 	}
