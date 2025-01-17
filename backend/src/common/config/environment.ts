@@ -9,6 +9,6 @@ export const ENVIRONMENT: IEnvironment = {
 		SECRET: process.env.JWT_SECRET!,
 	},
 	DB: {
-		URL: process.env.DB_URL!,
+		URL: process.env.DB_CONNECTION_STRING!,
 	},
 };
