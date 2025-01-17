@@ -14,7 +14,18 @@ export const getUser = catchAsync(async (req, res) => {
 	const { id } = req.params;
 
 	const user = await getUserById(id);
-	console.log(user);
+
+	if (!user) {
+		return AppResponse(res, 404, null, 'User not found');
+	}
+
+	return AppResponse(res, 200, user, 'Data retrieved successfully');
+});
+
+export const getMe = catchAsync(async (req, res) => {
+	const id  = req.user?._id as string;
+
+	const user = await getUserById(id);
 
 	if (!user) {
 		return AppResponse(res, 404, null, 'User not found');
@@ -28,22 +39,23 @@ export const updateUser = catchAsync(async (req, res) => {
 
 	// Validate the request body
 	const { error } = validateUserUpdate(req.body); // Use a validator for the schema
-	logger.error(`error ${error}`);
 	if (error) {
-		logger.warn(`Validation failed for ID: ${id} - ${error.message}`);
+		logger.warn(`controller.user.updateUser(): Validation failed for ID: ${id} - ${error.message}`);
 		return AppResponse(res, 400, null, `Validation error: ${error.message}`);
 	}
 
 	// Find the user by ID
-	const user = getUserById(id);
+	const user = await getUserById(id);
 	if (!user) {
-		logger.warn(`User with ID: ${id} not found`);
+		logger.warn(`controller.user.updateUser(): User with ID: ${id} not found`);
 		return AppResponse(res, 404, null, 'User not found');
 	}
 
+	logger.info(`controller.user.updateUser():  User ${user} with ID: ${id} about to be updated`);
+
 	// Update the user with new data
 	const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
-	logger.info(`User with ID: ${id} updated successfully`);
+	logger.info(`controller.user.updateUser():  User with ID: ${id} updated successfully`);
 
 	return AppResponse(res, 200, updatedUser, 'Data updated successfully');
 });
