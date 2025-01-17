@@ -1,20 +1,18 @@
 # Stage 1: Build
 FROM node:20-alpine AS builder
 
-RUN npm install -g pnpm
-
 WORKDIR /app
 
 # Copy package.json and install dependencies
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json package-lock.json ./
 
-RUN pnpm install
+RUN npm install
 
 # Copy source files
 COPY . .
 
 # Build the React app
-RUN pnpm run build
+RUN npm run build
 
 # Stage 2: Serve
 FROM nginx:alpine
