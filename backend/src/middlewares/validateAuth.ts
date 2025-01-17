@@ -10,31 +10,32 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
 	const authHeader = req.headers['authorization'];
 	if (!authHeader) {
-		logger.warn('Authorization header missing');
+		logger.warn('validateAuth.authenticate(): Authorization header missing');
 		return AppResponse(res, 401, null, 'Authorization header missing');
 	}
 
 	const token = authHeader.split(' ')[1];
 	if (!token) {
-		logger.warn('Token missing in authorization header');
+		logger.warn('validateAuth.authenticate(): Token missing in authorization header');
 		return AppResponse(res, 401, null, 'Token missing in authorization header');
 	}
 
 	try {
 		const decoded = decodeToken(token);
-		logger.info(`Token verified, decoding user ID: ${decoded.userId}`);
+		logger.info(`validateAuth.authenticate(): Token verified, decoding user ID: ${decoded.userId}`);
 
 		const user = await getUserById(decoded.userId);
 		if (!user) {
-			logger.warn(`User with ID ${decoded.userId} not found`);
+			logger.warn(`validateAuth.authenticate(): User with ID ${decoded.userId} not found`);
 			return AppResponse(res, 404, null, 'User not found');
 		}
 
-		logger.info(`User with ID ${decoded.userId} authenticated successfully`);
+		req.user = user;
+		logger.info(`validateAuth.authenticate():  User with ID ${decoded.userId} authenticated successfully`);
 		next();
 	} catch (error) {
 		const err = error as Error;
-		logger.error(`Error during authentication: ${err.message}`);
+		logger.error(`validateAuth.authenticate():  Error during authentication: ${err.message}`);
 		return AppResponse(res, 401, null, err.message);
 	} finally {
 		logger.info('validateAuth.authenticate(): Function Exit');
