@@ -6,10 +6,6 @@ import { createUser, getUserByEmail, getUserByUsername } from '@/services/users'
 export const register = catchAsync(async (req, res) => {
 	const { email, username, password } = req.body as RegisterRequestBody;
 
-	if (!email || !password || !username) {
-		return AppResponse(res, 400, null, 'Email, username and password are required');
-	}
-
 	// check if user already exists
 	const emailExist = await getUserByEmail(email);
 	if (emailExist) {
@@ -23,8 +19,12 @@ export const register = catchAsync(async (req, res) => {
 	}
 
 	const hashedPassword = await hashPassword(password);
+	console.log("hashedPassword", hashedPassword)
 
 	const user = await createUser({ email, username, password: hashedPassword });
 
-	return AppResponse(res, 201, user, 'User created successfully');
+	// Exclude password from the response
+	const { password: _, ...userWithoutPassword } = user.toJSON();
+
+	return AppResponse(res, 201, userWithoutPassword, 'User created successfully');
 });
