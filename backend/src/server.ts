@@ -26,7 +26,10 @@ import helmetCsp from 'helmet-csp';
 import hpp from 'hpp';
 import http from 'http';
 import morgan from 'morgan';
+// import { WebSocket } from 'ws';
+import { Server } from "socket.io"
 import { authRouter } from './routes/authRouter';
+import { roomHandler } from './controllers/room';
 
 dotenv.config();
 /**
@@ -170,6 +173,22 @@ app.all('/*', async (req, res) => {
 // to ensure all the express middlewares are set up before starting the socket server
 // including security headers and other middlewares
 const server = http.createServer(app);
+
+// Websocket
+const io = new Server(server, {
+	cors: {
+		origin: "*",
+		methods: ["GET", "POST"],
+	},
+});
+
+io.on("connection", (socket) => {
+	console.log("user is connected");
+	roomHandler(socket);
+	socket.on("disconnect", () => {
+		console.log("user is disconnected");
+	})
+});
 
 const appServer = server.listen(port, async () => {
 	await connectDb();
