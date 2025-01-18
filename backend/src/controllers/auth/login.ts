@@ -6,10 +6,6 @@ import { getUserByEmail } from '@/services/users';
 export const login = catchAsync(async (req, res) => {
 	const { email, password } = req.body;
 
-	if (!email || !password) {
-		return AppResponse(res, 400, null, 'Email and password are required');
-	}
-
 	// check if user exists
 	const user = await getUserByEmail(email);
 	if (!user) {
@@ -17,7 +13,8 @@ export const login = catchAsync(async (req, res) => {
 	}
 
 	// check if password is correct
-	const isPasswordCorrect = user.verifyPassword(password);
+	const isPasswordCorrect = await user.verifyPassword(password);
+	console.log("isPasswordCorrect", isPasswordCorrect)
 	if (!isPasswordCorrect) {
 		return AppResponse(res, 401, null, 'Invalid credentials');
 	}
