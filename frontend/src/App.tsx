@@ -1,12 +1,14 @@
-import "./App.css";
+// import "./App.css";
+// import { Join } from "./components/Join";
 
-function App() {
-  return (
-    <>
-      <h1 className="bg-black">supdateOkConferLink</h1>
-      <img src="" alt="" />
-    </>
-  );
-}
 
-export default App;
+// function App() {
+//   return (
+//       <div className="App flex items-center justify-center w-screen h-screen">
+//           <Join />
+//       </div>
+//   );
+// }
+
+// export default App;
+

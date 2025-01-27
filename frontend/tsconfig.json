@@ -43,6 +43,6 @@
     "jsx": "react-jsx",
     // "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src"],
+  "include": ["src", "cypress.config.ts"],
   "exclude": ["node_modules"]
 }
