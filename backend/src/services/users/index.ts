@@ -10,7 +10,7 @@ export const getAllUsers = async () => {
 };
 
 export const getUserByEmail = async (email: string) => {
-	return await UserModel.findOne({ email });
+	return await UserModel.findOne({ email }).select('+password');;
 };
 
 export const getUserByUsername = async (username: string) => {

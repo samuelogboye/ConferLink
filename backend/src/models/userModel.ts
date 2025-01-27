@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema<IUser, unknown, UserMethods>(
 /**
  * hash password before saving to the database only if the password is modified
  */
-userSchema.pre('save', async function (next) {
-	if (this.isModified('password')) {
-		this.password = await hashPassword(this.password as string);
-	}
+// userSchema.pre('save', async function (next) {
+// 	if (this.isModified('password')) {
+// 		this.password = await hashPassword(this.password as string);
+// 	}
 
-	next();
-});
+// 	next();
+// });
 
 /**
  * Verify user password method
